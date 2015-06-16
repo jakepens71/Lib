@@ -52,10 +52,21 @@ angular.module('starter.controllers', [])
     animation: 'slide-in-up'
   });
 
+  $scope.createNewWantedBook = function(book) {
+    $scope.booksWanted.push({
+      title: book.title
+    });
+    $scope.taskModal.hide();
+    book.title = "";
+  }
 
   $scope.newWantedBook = function()
   {
     $scope.taskModal.show();
+  }
+
+  $scope.closeNewWantedBook = function() {
+    $scope.taskModal.hide();
   }
 
 })
