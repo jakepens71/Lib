@@ -41,10 +41,23 @@ angular.module('starter.controllers', [])
   };
 })
 
-.controller('booksWantedCtrl', function($scope) {
-  $scope.booksWanted = [
-    { title: 'Jacob', id: 1 },
-  ];
+.controller('booksWantedCtrl', function($scope, $ionicModal) {
+  $scope.booksWanted = [];
+
+  //Create and Load the Modal
+  $ionicModal.fromTemplateUrl('newWantedBook.html', function(modal) {
+    $scope.taskModal = modal;
+  }, {
+    scope: $scope,
+    animation: 'slide-in-up'
+  });
+
+
+  $scope.newWantedBook = function()
+  {
+    $scope.taskModal.show();
+  }
+
 })
 
 .controller('PlaylistsCtrl', function($scope) {
