@@ -41,6 +41,12 @@ angular.module('starter.controllers', [])
   };
 })
 
+.controller('booksWantedCtrl', function($scope) {
+  $scope.booksWanted = [
+    { title: 'Jacob', id: 1 },
+  ];
+})
+
 .controller('PlaylistsCtrl', function($scope) {
   $scope.playlists = [
     { title: 'Reggae', id: 1 },
