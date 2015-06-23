@@ -1,5 +1,35 @@
 angular.module('starter.controllers', [])
 
+.factory('BooksWanted', function() {
+  return {
+    all: function() {
+      var booksWantedString = window.localStorage['booksWanted'];
+      if(booksWantedString) {
+        return angular.fromJson(booksWantedString);
+      }
+      return [];
+    },
+    save: function(booksWanted) {
+      window.localStorage['booksWanted'] = angular.toJson(projects);
+    },
+    save: function(booksWanted) {
+      window.localStorage['booksWanted'] = angular.toJson(projects);
+    },
+    newProject: function(booksWantedTitle) {
+      // Add a new project
+      return {
+        title: booksWantedTitle,
+      };
+    },
+    getLastActiveIndex: function() {
+      return parseInt(window.localStorage['lastActiveProject']) || 0;
+    },
+    setLastActiveIndex: function(index) {
+      window.localStorage['lastActiveProject'] = index;
+    }
+  }
+})
+
 .controller('AppCtrl', function($scope, $ionicModal, $timeout) {
   
   // With the new view caching in Ionic, Controllers are only called
@@ -8,6 +38,8 @@ angular.module('starter.controllers', [])
   // listen for the $ionicView.enter event:
   //$scope.$on('$ionicView.enter', function(e) {
   //});
+
+
   
   // Form data for the login modal
   $scope.loginData = {};
@@ -41,7 +73,7 @@ angular.module('starter.controllers', [])
   };
 })
 
-.controller('booksWantedCtrl', function($scope, $ionicModal) {
+.controller('booksWantedCtrl', function($scope, $timeout, $ionicModal, BooksWanted, $ionicSideMenuDelegate) {
   $scope.booksWanted = [];
 
   //Create and Load the Modal
@@ -52,12 +84,12 @@ angular.module('starter.controllers', [])
     animation: 'slide-in-up'
   });
 
-  $scope.createNewWantedBook = function(book) {
+  $scope.createNewWantedBook = function(bookWanted) {
     $scope.booksWanted.push({
-      title: book.title
+      title: bookWanted.title
     });
     $scope.taskModal.hide();
-    book.title = "";
+    bookWanted.title = "";
   }
 
   $scope.newWantedBook = function()
